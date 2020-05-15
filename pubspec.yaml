@@ -1,0 +1,39 @@
+name: cocaapp
+description: A new Flutter application.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  font_awesome_flutter:
+  qr_mobile_vision: ^0.3.1
+  flare_flutter: ^2.0.1
+  firebase_core: ^0.4.1+3
+  firebase_auth: 0.15.5+2
+  pin_code_fields: 3.0.0
+  cupertino_icons: ^0.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/flare/
+  fonts:
+    - family: CocaCola
+      fonts:
+        - asset: assets/fonts/Coca-Cola.otf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+
