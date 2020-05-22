@@ -110,10 +110,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'МЕТОК',
+                    'НОВЫХ',
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Mostserrat',
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0),
                   ),
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     '458',
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Mostserrat',
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 40.0),
                   ),
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     'ОТСКАНИРОВАНО',
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Mostserrat',
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 8.0),
                   ),
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   softWrap: true,
                   style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Mostserrat',
+                      fontFamily: 'Montserrat',
                       fontSize: 16.0),
                 ),
                 padding: EdgeInsets.only(right: 5),
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     'БОНУСОВ',
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Mostserrat',
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 14.0),
                   ),
@@ -186,14 +186,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     '206',
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Mostserrat',
+                        fontFamily: 'Montserrat',
                         fontWeight: FontWeight.bold,
                         fontSize: 40.0),
                   )
                 ],
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
               ),
               padding: EdgeInsets.only(
-                top: 25,
                 left: 10,
               ),
             ),
@@ -209,7 +210,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   softWrap: true,
                   style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Mostserrat',
+                      fontFamily: 'Montserrat',
                       fontSize: 16.0),
                 ),
                 padding: EdgeInsets.only(right: 5),
@@ -225,7 +226,63 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           color: Color.fromRGBO(63, 63, 63, 1),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: FlutterLogo(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Padding(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'ПРИЗОВ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0),
+                  ),
+                  Text(
+                    '3',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40.0),
+                  ),
+                  Text(
+                    'ПОЛУЧЕНО',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              padding: EdgeInsets.only(
+                left: 10,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Padding(
+                child: Text(
+                  'Когда соберешь нужное количество карточек определенного типа, сможешь получить соответствующий приз',
+                  maxLines: 4,
+                  softWrap: true,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Montserrat',
+                      fontSize: 16.0),
+                ),
+                padding: EdgeInsets.only(right: 5),
+              ),
+            )
+          ],
+        ),
       ),
     ),
   ];
@@ -296,7 +353,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         actions: <Widget>[
           Tooltip(
             child: IconButton(
-              icon: Icon(Icons.exit_to_app),
+              icon: Icon(Icons.edit),
               color: Colors.white.withOpacity(0.5),
               onPressed: () {},
             ),
@@ -378,13 +435,134 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Column(
               children: <Widget>[
                 Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Padding(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'БОНУСОВ',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14.0),
+                            ),
+                            Text(
+                              '206',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40.0),
+                            )
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                        ),
+                        padding: EdgeInsets.only(
+                          top: 0,
+                          left: 10,
+                        ),
+                      ),
+                      Icon(FontAwesomeIcons.coins),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          child: Text(
+                            'Бонусы можно потратить на коллекционные карточки и музыку',
+                            maxLines: 4,
+                            softWrap: true,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontSize: 16.0),
+                          ),
+                          padding: EdgeInsets.only(right: 5),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Padding(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'МЕТОК',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0),
+                            ),
+                            Text(
+                              '458',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40.0),
+                            ),
+                            Text(
+                              'ОТСКАНИРОВАНО',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 8.0),
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        ),
+                        padding: EdgeInsets.only(
+                          left: 10,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          child: Text(
+                            'Сканируй QR метки на этикетке Coca-Cola и получай за них Coca-бонусы',
+                            maxLines: 4,
+                            softWrap: true,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontSize: 16.0),
+                          ),
+                          padding: EdgeInsets.only(right: 5),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
                   margin: EdgeInsets.only(top: 50),
                   width: MediaQuery.of(c).size.width,
                   child: CarouselSlider(
                     items: _items,
                     carouselController: buttonCarouselController,
                     options: CarouselOptions(
-                      autoPlay: false,
+                      autoPlay: true,
                       height: 150,
                       viewportFraction: 0.8,
                       enlargeCenterPage: true,

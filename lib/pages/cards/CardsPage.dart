@@ -26,7 +26,7 @@ class _CardsPageState extends State<CardsPage> {
         children: <Widget>[
           Container(
             child: _buildRandomButton(
-                MediaQuery.of(context).size.width, 2.toString()),
+                MediaQuery.of(context).size.width, 5.toString()),
             width: MediaQuery.of(context).size.width,
           ),
           Expanded(
