@@ -310,15 +310,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           "Коллекция Coca-карточек",
           style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
         ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text(
-              "Found",
-              style: TextStyle(fontFamily: 'Montserrat', color: Colors.white),
-            ),
-            onPressed: () {},
-          )
-        ],
       );
 
   Widget _musicAppBar() => AppBar(
