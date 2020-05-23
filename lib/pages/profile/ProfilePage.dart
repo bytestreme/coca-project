@@ -1,3 +1,4 @@
+import 'package:cocaapp/authservice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -67,7 +68,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
-              onPressed: () {},
+              onPressed: () {
+                AuthService().signOut();
+              },
             ),
             padding: EdgeInsets.only(top: 75),
           ),

@@ -1,9 +1,8 @@
-import 'package:cocaapp/pages/home/HomePage.dart';
+import 'package:cocaapp/authservice.dart';
 import 'package:cocaapp/util/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'CardOpenPage.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 void main() {
   runApp(App());
@@ -24,7 +23,7 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: BACKGROUND_COLOR,
         appBarTheme: AppBarTheme(color: BACKGROUND_COLOR),
       ),
-      home: CardOpenPage(),
+      home: AuthService().handleAuth(),
       debugShowCheckedModeBanner: false,
     );
   }
