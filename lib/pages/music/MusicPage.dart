@@ -1,4 +1,6 @@
+import 'package:cocaapp/pages/modal_inside_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MusicPage extends StatefulWidget {
   final TabController tabController;
@@ -149,7 +151,13 @@ class _MusicPageState extends State<MusicPage> with TickerProviderStateMixin {
               ],
             ),
           ),
-          onTap: () {},
+            onTap: () => showMaterialModalBottomSheet(
+              expand: false,
+              context: context,
+              backgroundColor: Colors.transparent,
+              builder: (context, scrollController) =>
+                  ModalFit(scrollController: scrollController),
+            )
         ),
       ),
     );

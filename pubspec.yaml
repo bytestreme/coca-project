@@ -20,6 +20,7 @@ dependencies:
   bottom_navy_bar: ^5.4.0
   sliding_up_panel: ^1.0.2
   carousel_slider: ^2.1.0
+  modal_bottom_sheet: ^0.1.6+1
 
 
 

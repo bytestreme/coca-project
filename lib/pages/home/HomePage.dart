@@ -422,241 +422,103 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _homePage(c) => Container(
         width: MediaQuery.of(c).size.width,
         height: MediaQuery.of(c).size.height,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: <Widget>[
-            Image.asset(
-              "assets/images/line-hd.png",
-              width: MediaQuery.of(c).size.width,
-              height: 55,
-              fit: BoxFit.fill,
+            Positioned(
+              right: 0,
+              bottom: 150,
+              child: Image.asset(
+                "assets/images/aa.png",
+                alignment: Alignment.bottomRight,
+                height: 370,
+              ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Padding(
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'БОНУСОВ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0),
-                            ),
-                            Text(
-                              '206',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40.0),
-                            )
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                        ),
-                        padding: EdgeInsets.only(
-                          top: 0,
-                          left: 10,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          child: Text(
-                            'Бонусы можно потратить на коллекционные карточки и музыку',
-                            maxLines: 4,
-                            softWrap: true,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                                fontSize: 16.0),
-                          ),
-                          padding: EdgeInsets.only(right: 5),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Padding(
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'МЕТОК',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0),
-                            ),
-                            Text(
-                              '458',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40.0),
-                            ),
-                            Text(
-                              'ОТСКАНИРОВАНО',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 8.0),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: 10,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          child: Text(
-                            'Сканируй QR метки на этикетке Coca-Cola и получай за них Coca-бонусы',
-                            maxLines: 4,
-                            softWrap: true,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                                fontSize: 16.0),
-                          ),
-                          padding: EdgeInsets.only(right: 5),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Padding(
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'ПРИЗОВ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0),
-                            ),
-                            Text(
-                              '3',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 40.0),
-                            ),
-                            Text(
-                              'ПОЛУЧЕНО',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.0),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: 10,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          child: Text(
-                            'Когда соберешь нужное количество карточек определенного типа, сможешь получить соответствующий приз',
-                            maxLines: 4,
-                            softWrap: true,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                                fontSize: 16.0),
-                          ),
-                          padding: EdgeInsets.only(right: 5),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 50),
+                Image.asset(
+                  "assets/images/line-hd.png",
                   width: MediaQuery.of(c).size.width,
-                  child: CarouselSlider(
-                    items: _items,
-                    carouselController: buttonCarouselController,
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      height: 150,
-                      viewportFraction: 0.8,
-                      enlargeCenterPage: true,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentCard = index;
-                        });
-                      },
+                  height: 55,
+                  fit: BoxFit.fill,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 25, top: 80),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          '206',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 80.0),
+                        ),
+                        Text(
+                          'БОНУСОВ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28.0),
+                        ),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _items.map((url) {
-                    int index = _items.indexOf(url);
-                    return AnimatedContainer(
-                      duration: Duration(milliseconds: 700),
-                      width: 8.0,
-                      height: 8.0,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _currentCard == index
-                            ? Colors.white.withOpacity(0.5)
-                            : Colors.white.withOpacity(0.1),
-                      ),
-                    );
-                  }).toList(),
-                )
+                Expanded(
+                  child: Align(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 0),
+                          width: MediaQuery.of(c).size.width,
+                          child: CarouselSlider(
+                            items: _items,
+                            carouselController: buttonCarouselController,
+                            options: CarouselOptions(
+                              autoPlay: true,
+                              height: 150,
+                              viewportFraction: 0.8,
+                              enlargeCenterPage: true,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentCard = index;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _items.map((url) {
+                            int index = _items.indexOf(url);
+                            return AnimatedContainer(
+                              duration: Duration(milliseconds: 700),
+                              width: 8.0,
+                              height: 8.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _currentCard == index
+                                    ? Colors.white.withOpacity(0.5)
+                                    : Colors.white.withOpacity(0.1),
+                              ),
+                            );
+                          }).toList(),
+                        )
+                      ],
+                    ),
+                    alignment: Alignment.bottomCenter,
+                  ),
+                ),
               ],
             ),
           ],
