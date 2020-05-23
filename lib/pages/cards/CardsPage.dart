@@ -1,3 +1,4 @@
+import 'package:cocaapp/CardOpenPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -203,7 +204,11 @@ class _CardsPageState extends State<CardsPage> {
               ],
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            showDialog(context: context, builder: (c){
+              return CardOpenPage();
+            });
+          },
         ),
       ),
     );

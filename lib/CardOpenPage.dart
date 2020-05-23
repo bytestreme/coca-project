@@ -21,6 +21,13 @@ class _CardOpenPageState extends State<CardOpenPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Случайная карточка",
+          style: TextStyle(fontFamily: "Montserrat"),
+        ),
+      ),
       body: Center(
         child: Stack(
           alignment: Alignment.center,
@@ -122,6 +129,33 @@ class _CardOpenPageState extends State<CardOpenPage>
                 controller: _flareController,
               ),
             ),
+            Positioned(
+              bottom: 40,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                height: 45,
+                child: Material(
+                  borderRadius: BorderRadius.circular(40.0),
+                  color: Colors.white,
+                  elevation: 1.0,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(40.0),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Center(
+                      child: Text(
+                        'Продолжить',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat'),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

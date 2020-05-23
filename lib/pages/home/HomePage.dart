@@ -5,9 +5,11 @@ import 'package:cocaapp/pages/cards/CardsPage.dart';
 import 'package:cocaapp/pages/music/MusicPage.dart';
 import 'package:cocaapp/pages/profile/ProfilePage.dart';
 import 'package:cocaapp/pages/qr/QrScanPage.dart';
+import 'package:cocaapp/scoped/MainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -297,47 +299,50 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _currentAppBar,
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        showElevation: true,
-        backgroundColor: Color.fromRGBO(25, 25, 25, 1),
-        onItemSelected: (index) {
-          setState(() {
-            switch (index) {
-              case 0:
-                _currentAppBar = _homeAppBar();
-                break;
-              case 1:
-                _currentAppBar = _musicAppBar();
-                break;
-              case 2:
-                _currentAppBar = _cardsAppBar();
-                break;
-              case 3:
-                _currentAppBar = _profileAppBar();
-                break;
-            }
-            _currentIndex = index;
-          });
-          _pageController.jumpToPage(index);
-        },
-        items: _bottomItems,
-      ),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        onPageChanged: (index) {
-          setState(() => _currentIndex = index);
-        },
-        children: <Widget>[
-          _homePage(context),
-          _musicPage(),
-          _cardsPage(),
-          _profilePage(),
-        ],
+    return ScopedModel<MainModel>(
+      model: MainModel(),
+      child: Scaffold(
+        appBar: _currentAppBar,
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          showElevation: true,
+          backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+          onItemSelected: (index) {
+            setState(() {
+              switch (index) {
+                case 0:
+                  _currentAppBar = _homeAppBar();
+                  break;
+                case 1:
+                  _currentAppBar = _musicAppBar();
+                  break;
+                case 2:
+                  _currentAppBar = _cardsAppBar();
+                  break;
+                case 3:
+                  _currentAppBar = _profileAppBar();
+                  break;
+              }
+              _currentIndex = index;
+            });
+            _pageController.jumpToPage(index);
+          },
+          items: _bottomItems,
+        ),
+        body: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          onPageChanged: (index) {
+            setState(() => _currentIndex = index);
+          },
+          children: <Widget>[
+            _homePage(context),
+            _musicPage(),
+            _cardsPage(),
+            _profilePage(),
+          ],
+        ),
       ),
     );
   }
