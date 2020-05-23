@@ -3,6 +3,8 @@ import 'package:cocaapp/util/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'CardOpenPage.dart';
+
 void main() {
   runApp(App());
 }
@@ -22,7 +24,7 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: BACKGROUND_COLOR,
         appBarTheme: AppBarTheme(color: BACKGROUND_COLOR),
       ),
-      home: HomePage(),
+      home: CardOpenPage(),
       debugShowCheckedModeBanner: false,
     );
   }

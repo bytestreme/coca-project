@@ -21,6 +21,7 @@ dependencies:
   sliding_up_panel: ^1.0.2
   carousel_slider: ^2.1.0
   modal_bottom_sheet: ^0.1.6+1
+  animate_do:
 
 
 
