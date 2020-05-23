@@ -1,4 +1,5 @@
 import 'package:cocaapp/authservice.dart';
+import 'package:cocaapp/scoped/MainModel.dart';
 import 'package:cocaapp/util/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,15 +17,22 @@ class App extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark().copyWith(
-        backgroundColor: BACKGROUND_COLOR,
-        scaffoldBackgroundColor: BACKGROUND_COLOR,
-        appBarTheme: AppBarTheme(color: BACKGROUND_COLOR),
+    return ScopedModel<MainModel>(
+      model: MainModel(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData.dark().copyWith(
+          backgroundColor: BACKGROUND_COLOR,
+          scaffoldBackgroundColor: BACKGROUND_COLOR,
+          appBarTheme: AppBarTheme(color: BACKGROUND_COLOR),
+        ),
+        home: ScopedModelDescendant<MainModel>(
+          builder: (_, __, m) {
+            return m.handleAuth();
+          },
+        ),
+        debugShowCheckedModeBanner: false,
       ),
-      home: AuthService().handleAuth(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
