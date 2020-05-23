@@ -433,6 +433,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               fit: BoxFit.fill,
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
@@ -468,7 +470,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           left: 10,
                         ),
                       ),
-                      Icon(FontAwesomeIcons.coins),
                       SizedBox(
                         width: 10,
                       ),
@@ -490,7 +491,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
@@ -553,7 +554,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 20,
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Padding(
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'ПРИЗОВ',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0),
+                            ),
+                            Text(
+                              '3',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40.0),
+                            ),
+                            Text(
+                              'ПОЛУЧЕНО',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0),
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        ),
+                        padding: EdgeInsets.only(
+                          left: 10,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          child: Text(
+                            'Когда соберешь нужное количество карточек определенного типа, сможешь получить соответствующий приз',
+                            maxLines: 4,
+                            softWrap: true,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontSize: 16.0),
+                          ),
+                          padding: EdgeInsets.only(right: 5),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 50),
