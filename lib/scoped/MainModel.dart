@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:convert' as convert;
 import 'dart:typed_data';
 
-import 'package:cocaapp/authservice.dart';
 import 'package:cocaapp/main.dart';
 import 'package:cocaapp/models/CardDisplay.dart';
 import 'package:cocaapp/models/CardModel.dart';
@@ -13,11 +13,8 @@ import 'package:cocaapp/pages/welcome/WelcomePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
-import 'package:cocaapp/models/CardDisplay.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class MainModel extends Model {
   StreamController evenStream = new StreamController.broadcast();
@@ -43,6 +40,19 @@ class MainModel extends Model {
   void setAuthLoaded() {
     authLoading = false;
     notifyListeners();
+  }
+
+  Future<int> validateQr(String text) async {
+    Response res = await http.post(
+      backEndUrl + "validateQR",
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        "Authorization": "Bearer " + this.token
+      },
+      body: convert.json.encode({'payload': text, 'lat': "0.0", 'lon': "0.0"}),
+    );
+    return res.statusCode;
   }
 
   Future<CardModel> openCard() async {

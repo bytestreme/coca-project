@@ -11,6 +11,7 @@ void main() {
 }
 
 class App extends StatelessWidget {
+  MainModel model = MainModel();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class App extends StatelessWidget {
       DeviceOrientation.portraitUp,
     ]);
     return ScopedModel<MainModel>(
-      model: MainModel(),
+      model: model,
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(

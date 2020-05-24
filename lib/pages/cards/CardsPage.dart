@@ -45,7 +45,7 @@ class _CardsPageState extends State<CardsPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              color: Color.fromRGBO(63, 63, 63, 1),
+                              color: Color.fromRGBO(10, 10, 10, 1),
                               child: Stack(
                                 children: <Widget>[
                                   Column(

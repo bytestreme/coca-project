@@ -20,7 +20,7 @@ class CardOpenPage extends StatefulWidget {
 class _CardOpenPageState extends State<CardOpenPage>
     with TickerProviderStateMixin {
   FlareControls _flareController;
-
+  bool visible = false;
   @override
   void initState() {
     super.initState();
@@ -48,6 +48,9 @@ class _CardOpenPageState extends State<CardOpenPage>
                 controller.addListener(() {
                   if (controller.isCompleted) {
                     _flareController.play("boom");
+                    setState(() {
+                      visible = true;
+                    });
                   }
                 });
               },
@@ -137,7 +140,7 @@ class _CardOpenPageState extends State<CardOpenPage>
                 controller: _flareController,
               ),
             ),
-            Positioned(
+            visible ? Positioned(
               bottom: 40,
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.6,
@@ -165,7 +168,7 @@ class _CardOpenPageState extends State<CardOpenPage>
                   ),
                 ),
               ),
-            )
+            ) : Container()
           ],
         ),
       ),
