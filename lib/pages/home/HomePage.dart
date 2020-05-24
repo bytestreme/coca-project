@@ -299,51 +299,52 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<MainModel>(
-      model: MainModel(),
-      child: Scaffold(
-        appBar: _currentAppBar,
-        bottomNavigationBar: BottomNavyBar(
-          selectedIndex: _currentIndex,
-          showElevation: true,
-          backgroundColor: Color.fromRGBO(25, 25, 25, 1),
-          onItemSelected: (index) {
-            setState(() {
-              switch (index) {
-                case 0:
-                  _currentAppBar = _homeAppBar();
-                  break;
-                case 1:
-                  _currentAppBar = _musicAppBar();
-                  break;
-                case 2:
-                  _currentAppBar = _cardsAppBar();
-                  break;
-                case 3:
-                  _currentAppBar = _profileAppBar();
-                  break;
-              }
-              _currentIndex = index;
-            });
-            _pageController.jumpToPage(index);
-          },
-          items: _bottomItems,
-        ),
-        body: PageView(
-          controller: _pageController,
-          physics: NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          onPageChanged: (index) {
-            setState(() => _currentIndex = index);
-          },
-          children: <Widget>[
-            _homePage(context),
-            _musicPage(),
-            _cardsPage(),
-            _profilePage(),
-          ],
-        ),
-      ),
+    return ScopedModelDescendant<MainModel>(
+      builder: (_, __, model) {
+        return Scaffold(
+          appBar: _currentAppBar,
+          bottomNavigationBar: BottomNavyBar(
+            selectedIndex: _currentIndex,
+            showElevation: true,
+            backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+            onItemSelected: (index) {
+              setState(() {
+                switch (index) {
+                  case 0:
+                    _currentAppBar = _homeAppBar();
+                    break;
+                  case 1:
+                    _currentAppBar = _musicAppBar();
+                    break;
+                  case 2:
+                    _currentAppBar = _cardsAppBar();
+                    break;
+                  case 3:
+                    _currentAppBar = _profileAppBar();
+                    break;
+                }
+                _currentIndex = index;
+              });
+              _pageController.jumpToPage(index);
+            },
+            items: _bottomItems,
+          ),
+          body: PageView(
+            controller: _pageController,
+            physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            onPageChanged: (index) {
+              setState(() => _currentIndex = index);
+            },
+            children: <Widget>[
+              _homePage(context),
+              _musicPage(),
+              _cardsPage(),
+              _profilePage(),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -453,7 +454,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   flex: 2,
                   child: Container(
                     margin: EdgeInsets.only(left: 25, top: 80),
-                    child: Column(
+                    child: ListView(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       children: <Widget>[
                         Text(
                           '206',
@@ -472,14 +475,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               fontSize: 28.0),
                         ),
                       ],
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
                     ),
                   ),
                 ),
                 Expanded(
                   child: Align(
-                    child: Column(
+                    child: ListView(
+                      shrinkWrap: true,
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(top: 0),

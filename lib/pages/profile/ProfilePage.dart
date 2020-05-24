@@ -13,10 +13,16 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
-      builder: (_,__, m) {
+      builder: (_, __, m) {
         return Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -64,17 +70,17 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Padding(
                 child: FlatButton(
-                  child: Text(
-                    "Выйти",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  onPressed: () {
-                   m.signOut();
-                  },
+                    child: Text(
+                      "Выйти",
+                      style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    onPressed: () {
+                      m.signOut();
+                    }
                 ),
                 padding: EdgeInsets.only(top: 75),
               ),
