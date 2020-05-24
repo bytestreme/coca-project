@@ -32,6 +32,7 @@ class MainModel extends Model {
   int score = 0;
   List<CardModel> userCards = [];
   List<SongModel> userSongs = [];
+  List<SongModel> allSongs = [];
   List<CardDisplay> userCardDisplay = [];
 
   void setAuthLoading() {
@@ -51,6 +52,13 @@ class MainModel extends Model {
     return CardModel.fromJson(jsonResponse);
   }
 
+  Future<int> buySong(int id) async {
+    Response res = await http.post(
+        backEndUrl + "buySong?songId=" + id.toString(),
+        headers: getAuthHeader());
+    return res.statusCode;
+  }
+
   Future<void> fetchUserData() async {
     userCardDisplay = [];
     Response res = await http.post(backEndUrl + "me", headers: getAuthHeader());
@@ -65,18 +73,38 @@ class MainModel extends Model {
         .toList();
 
     for (CardModel c in this.userCards) {
-      var product = this.userCardDisplay.firstWhere((card) => card.id == c.id, orElse: () => null);
+      var product = this
+          .userCardDisplay
+          .firstWhere((card) => card.id == c.id, orElse: () => null);
       if (product == null) {
-        this.userCardDisplay.add(CardDisplay.name(c.id, c.title, c.description, c.requiredNumber, c.rarity, c.imageId, 1));
+        this.userCardDisplay.add(CardDisplay.name(c.id, c.title, c.description,
+            c.requiredNumber, c.rarity, c.imageId, 1));
       } else {
         product.quantity++;
       }
     }
 
-    this.userSongs = List<SongModel>.from(jsonResponse['gotSongs']);
+    this.userSongs = List<Map<String, dynamic>>.from(jsonResponse['gotSongs'])
+        .map((e) => SongModel.fromJson(e))
+        .toList();
     Response imgBottle =
         await http.get(backEndUrl + "getNamedBottle", headers: getAuthHeader());
     this.bottle = imgBottle.bodyBytes;
+
+    Response allSongs = await http.get(backEndUrl + "public/getSongs");
+    var allSongsJson = convert.jsonDecode(utf8.decode(allSongs.bodyBytes));
+    this.allSongs = List<Map<String, dynamic>>.from(allSongsJson)
+        .map((e) => SongModel.fromJson(e))
+        .toList();
+
+    for (int i = this.allSongs.length - 1; i >= 0; i--) {
+      var existingSong = this.userSongs.firstWhere(
+          (song) => song.id == this.allSongs[i].id,
+          orElse: () => null);
+      if (existingSong != null) {
+        this.allSongs.removeAt(i);
+      }
+    }
 
     evenStream.sink.add("NAMED");
     notifyListeners();
@@ -85,8 +113,6 @@ class MainModel extends Model {
   Map<String, String> getAuthHeader() {
     return {"Authorization": "Bearer " + this.token};
   }
-
-
 
   void setName(String name) {
     this.name = name;
