@@ -27,6 +27,18 @@ class MainModel extends Model {
   bool authLoading = false;
   Uint8List bottle;
   int score = 0;
+  bool musicUpdating = false;
+
+  void setMusicUpdating() {
+    this.musicUpdating = true;
+    notifyListeners();
+  }
+
+  void setMusicNotUpdating() {
+    this.musicUpdating = false;
+    notifyListeners();
+  }
+
   List<CardModel> userCards = [];
   List<SongModel> userSongs = [];
   List<SongModel> allSongs = [];
@@ -78,9 +90,11 @@ class MainModel extends Model {
     this.phone = jsonResponse['phone'];
     this.score = jsonResponse['score'];
 
-    this.userCards = List<Map<String, dynamic>>.from(jsonResponse['gotCards'])
-        .map((e) => CardModel.fromJson(e))
-        .toList();
+    this.userCards = jsonResponse['gotCards'] == null
+        ? []
+        : List<Map<String, dynamic>>.from(jsonResponse['gotCards'])
+            .map((e) => CardModel.fromJson(e))
+            .toList();
 
     for (CardModel c in this.userCards) {
       var product = this

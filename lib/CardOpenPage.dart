@@ -6,6 +6,7 @@ import 'package:cocaapp/util/Colors.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CardOpenPage extends StatefulWidget {
   final CardModel card;
@@ -20,7 +21,9 @@ class CardOpenPage extends StatefulWidget {
 class _CardOpenPageState extends State<CardOpenPage>
     with TickerProviderStateMixin {
   FlareControls _flareController;
+  bool loading = false;
   bool visible = false;
+
   @override
   void initState() {
     super.initState();
@@ -140,35 +143,48 @@ class _CardOpenPageState extends State<CardOpenPage>
                 controller: _flareController,
               ),
             ),
-            visible ? Positioned(
-              bottom: 40,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: 45,
-                child: Material(
-                  borderRadius: BorderRadius.circular(40.0),
-                  color: Colors.white,
-                  elevation: 1.0,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(40.0),
-                    onTap: () {
-                      widget.model.fetchUserData().then((value) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                    child: Center(
-                      child: Text(
-                        'Продолжить',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat'),
+            visible
+                ? Positioned(
+                    bottom: 40,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: 45,
+                      child: Material(
+                        borderRadius: BorderRadius.circular(40.0),
+                        color: Colors.white,
+                        elevation: 1.0,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(40.0),
+                          onTap: () {
+                            setState(() {
+                              loading = true;
+                            });
+                            widget.model.fetchUserData().then((value) {
+                              setState(() {
+                                loading = false;
+                              });
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          child: Center(
+                            child: loading
+                                ? SpinKitThreeBounce(
+                                    size: 25,
+                                    color: Colors.black,
+                                  )
+                                : Text(
+                                    'Продолжить',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Montserrat'),
+                                  ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ) : Container()
+                  )
+                : Container()
           ],
         ),
       ),

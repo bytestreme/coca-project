@@ -4,6 +4,7 @@ import 'package:cocaapp/pages/modal_inside_modal.dart';
 import 'package:cocaapp/scoped/MainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MusicPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class MusicPage extends StatefulWidget {
 
 class _MusicPageState extends State<MusicPage> with TickerProviderStateMixin {
   int _selected = 0;
+  bool updating = false;
 
   @override
   Widget build(BuildContext context) {
@@ -291,20 +293,26 @@ class _MusicPageState extends State<MusicPage> with TickerProviderStateMixin {
       child: GlowingOverscrollIndicator(
         axisDirection: AxisDirection.down,
         color: Colors.black,
-        child: ListView.builder(
-          padding: EdgeInsets.only(top: 10),
-          itemCount: widget.model.allSongs.length,
-          itemBuilder: (_, int index) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                _buildAvailableSongsItem(MediaQuery.of(context).size.width,
-                    widget.model.allSongs[index]),
-                Divider(),
-              ],
-            );
-          },
-        ),
+        child: widget.model.musicUpdating
+            ? SpinKitFadingCircle(
+                size: 60,
+                color: Colors.white,
+              )
+            : ListView.builder(
+                padding: EdgeInsets.only(top: 10),
+                itemCount: widget.model.allSongs.length,
+                itemBuilder: (_, int index) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      _buildAvailableSongsItem(
+                          MediaQuery.of(context).size.width,
+                          widget.model.allSongs[index]),
+                      Divider(),
+                    ],
+                  );
+                },
+              ),
       ),
     );
   }

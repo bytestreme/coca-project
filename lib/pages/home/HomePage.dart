@@ -414,7 +414,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Tooltip(
             child: IconButton(
               icon: Icon(Icons.library_music),
-              onPressed: () {},
+              onPressed: () {
+
+              },
             ),
             message: "Плеер",
           )

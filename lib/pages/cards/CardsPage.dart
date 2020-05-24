@@ -4,6 +4,7 @@ import 'package:cocaapp/scoped/MainModel.dart';
 import 'package:cocaapp/util/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CardsPage extends StatefulWidget {
   MainModel model;
@@ -15,6 +16,7 @@ class CardsPage extends StatefulWidget {
 }
 
 class _CardsPageState extends State<CardsPage> {
+  bool opening = false;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,9 @@ class _CardsPageState extends State<CardsPage> {
                                             child: Image.network(
                                               backEndUrl +
                                                   "public/getFile?fileId=" +
-                                                  widget.model.userCardDisplay[index]
+                                                  widget
+                                                      .model
+                                                      .userCardDisplay[index]
                                                       .imageId
                                                       .toString(),
                                               height: 60,
@@ -178,11 +182,16 @@ class _CardsPageState extends State<CardsPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Image.asset(
-                  "assets/images/cokelogo.png",
-                  height: 55,
-                  alignment: Alignment.center,
-                ),
+                opening
+                    ? SpinKitFadingCircle(
+                        size: 35,
+                        color: Colors.white12,
+                      )
+                    : Image.asset(
+                        "assets/images/cokelogo.png",
+                        height: 55,
+                        alignment: Alignment.center,
+                      ),
                 Container(
                   margin: EdgeInsets.only(left: 5),
                   width: screenWidth * 0.7,
@@ -216,12 +225,19 @@ class _CardsPageState extends State<CardsPage> {
             ),
           ),
           onTap: () {
+            setState(() {
+              opening = true;
+            });
             widget.model.openCard().then((card) {
               showDialog(
                   context: context,
                   builder: (c) {
                     return CardOpenPage(card: card, model: widget.model);
-                  });
+                  }).then((value) {
+                setState(() {
+                  opening = false;
+                });
+              });
             });
           },
         ),
