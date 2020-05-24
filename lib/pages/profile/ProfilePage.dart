@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       children: [
                         TextSpan(
-                          text: " +7-747-345-1998",
+                          text: " ${m.phone}",
                           style: TextStyle(
                               fontFamily: "Montserrat",
                               fontSize: 18,

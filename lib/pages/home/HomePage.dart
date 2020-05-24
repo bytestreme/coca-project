@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -302,6 +304,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, model) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomPadding: false,
           appBar: _currentAppBar,
           bottomNavigationBar: BottomNavyBar(
             selectedIndex: _currentIndex,
@@ -320,7 +324,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     _currentAppBar = _cardsAppBar();
                     break;
                   case 3:
-                    _currentAppBar = _profileAppBar();
+                    _currentAppBar = _profileAppBar(model.name);
                     break;
                 }
                 _currentIndex = index;
@@ -337,7 +341,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               setState(() => _currentIndex = index);
             },
             children: <Widget>[
-              _homePage(context),
+              _homePage(context, model.score, model.bottle),
               _musicPage(),
               _cardsPage(),
               _profilePage(),
@@ -348,9 +352,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Widget _profileAppBar() => AppBar(
+  Widget _profileAppBar(String name) => AppBar(
         title: Text(
-          "Кайрат С.",
+          name,
           style: TextStyle(
               fontFamily: 'Montserrat',
               color: Colors.white,
@@ -363,7 +367,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               color: Colors.white.withOpacity(0.5),
               onPressed: () {},
             ),
-            message: 'Выйти',
+            message: 'Редактировать',
           )
         ],
       );
@@ -425,7 +429,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget _profilePage() => ProfilePage();
 
-  Widget _homePage(c) => Container(
+  Widget _homePage(c, int score, Uint8List img) => Container(
         width: MediaQuery.of(c).size.width,
         height: MediaQuery.of(c).size.height,
         child: Stack(
@@ -433,10 +437,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Positioned(
               right: 0,
               bottom: 150,
-              child: Image.asset(
-                "assets/images/aa.png",
-                alignment: Alignment.bottomRight,
+//              child: Image.asset(
+//                "assets/images/aa.png",
+//                alignment: Alignment.bottomRight,
+//                height: 370,
+//              ),
+              child: Image.memory(
+                img,
                 height: 370,
+                alignment: Alignment.bottomRight,
               ),
             ),
             Column(
@@ -457,9 +466,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: ListView(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
+                      padding: EdgeInsets.only(left: 0),
                       children: <Widget>[
                         Text(
-                          '206',
+                          score.toString(),
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Montserrat',

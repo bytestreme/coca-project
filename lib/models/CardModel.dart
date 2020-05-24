@@ -1,12 +1,12 @@
 import 'package:cocaapp/models/RarityModel.dart';
 
 class CardModel {
-  int _id;
-  String _title;
-  String _description;
-  int _requiredNumber;
+  int         _id;
+  String      _title;
+  String      _description;
+  int         _requiredNumber;
   RarityModel _rarity;
-  int _imageId;
+  int         _imageId;
 
   CardModel(this._id, this._title, this._description, this._requiredNumber,
       this._rarity, this._imageId);
@@ -22,4 +22,13 @@ class CardModel {
   String get title => _title;
 
   int get id => _id;
+
+  factory CardModel.fromJson(Map<String, dynamic> json) => CardModel(
+        json['id'],
+        json['title'],
+        json['description'],
+        json['requiredNumber'],
+        json['rarity'],
+        json['imageId'],
+      );
 }

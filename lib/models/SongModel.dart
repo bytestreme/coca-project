@@ -32,4 +32,17 @@ class SongModel {
   String get title => _title;
 
   int get id => _id;
+
+  factory SongModel.fromJson(Map<String, dynamic> json) => SongModel(
+    json['id'],
+    json['title'],
+    json['_author'],
+    json['_imageId'],
+    json['_backId'],
+    json['_price'],
+    json['_album'],
+    json['_year'],
+    json['_trackOrder'],
+    json['_text'],
+  );
 }

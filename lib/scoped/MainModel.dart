@@ -1,14 +1,21 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:cocaapp/authservice.dart';
+import 'package:cocaapp/models/CardModel.dart';
+import 'package:cocaapp/models/SongModel.dart';
 import 'package:cocaapp/pages/home/HomePage.dart';
 import 'package:cocaapp/pages/welcome/NamingPage.dart';
 import 'package:cocaapp/pages/welcome/WelcomePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainModel extends Model {
   StreamController evenStream = new StreamController.broadcast();
@@ -20,8 +27,10 @@ class MainModel extends Model {
   String phone;
   String name;
   bool authLoading = false;
-  bool initFinished = false;
+  Uint8List bottle;
   int score = 0;
+  List<CardModel> userCards = [];
+  List<SongModel> userSongs = [];
 
   void setAuthLoading() {
     authLoading = true;
@@ -33,14 +42,33 @@ class MainModel extends Model {
     notifyListeners();
   }
 
+  Future<void> fetchUserData() async {
+    Response res = await http.post(backEndUrl + "me", headers: getAuthHeader());
+    var jsonResponse = convert.jsonDecode(utf8.decode(res.bodyBytes));
+    this.uid = jsonResponse['uuid'];
+    this.name = jsonResponse['name'].toString();
+    this.phone = jsonResponse['phone'];
+    this.score = jsonResponse['score'];
+    this.userCards = List<CardModel>.from(jsonResponse['gotCards']);
+    this.userSongs = List<SongModel>.from(jsonResponse['gotSongs']);
+    Response imgBottle =
+        await http.get(backEndUrl + "getNamedBottle", headers: getAuthHeader());
+    this.bottle = imgBottle.bodyBytes;
+
+    evenStream.sink.add("NAMED");
+    notifyListeners();
+  }
+
+  Map<String, String> getAuthHeader() {
+    return {"Authorization": "Bearer " + this.token};
+  }
+
   void setName(String name) {
     this.name = name;
-    http.post(
-      backEndUrl + "setName?name=" + name,
-      headers: {"Authorization": "Bearer " + this.token},
-    ).then((r) {
-      evenStream.sink.add("NAMED");
-      notifyListeners();
+    http
+        .post(backEndUrl + "setName?name=" + name, headers: getAuthHeader())
+        .then((r) async {
+      await fetchUserData();
     });
   }
 
@@ -71,15 +99,14 @@ class MainModel extends Model {
     );
   }
 
-  signOut()  {
-    evenStream.sink.add("LOGOUT");
-    print("ds");
-//    FirebaseAuth.instance.signOut().then((value) {
-//      this.uid = null;
-//      this.token = null;
-//      this.name = null;
-//      this.phone = null;
-//    });
+  signOut() {
+    FirebaseAuth.instance.signOut().then((value) {
+      this.uid = null;
+      this.token = null;
+      this.name = null;
+      this.phone = null;
+      evenStream.sink.add("LOGOUT");
+    });
   }
 
   signIn(AuthCredential authCreds) {
