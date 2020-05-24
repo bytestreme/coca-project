@@ -1,9 +1,18 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cocaapp/main.dart';
+import 'package:cocaapp/models/CardModel.dart';
+import 'package:cocaapp/scoped/MainModel.dart';
+import 'package:cocaapp/util/Colors.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 
 class CardOpenPage extends StatefulWidget {
+  final CardModel card;
+  MainModel model;
+
+  CardOpenPage({Key key, this.card, this.model}) : super(key: key);
+
   @override
   _CardOpenPageState createState() => _CardOpenPageState();
 }
@@ -53,13 +62,6 @@ class _CardOpenPageState extends State<CardOpenPage>
                     color: Color.fromRGBO(63, 63, 63, 1),
                     child: Stack(
                       children: <Widget>[
-                        Positioned(
-                          bottom: 0.0,
-                          right: 0.0,
-                          child: FlutterLogo(
-                            size: 150,
-                          ),
-                        ),
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,28 +76,34 @@ class _CardOpenPageState extends State<CardOpenPage>
                                   width: 60,
                                   height: 60,
                                   decoration: BoxDecoration(
-                                      color: Colors.blue,
+                                      color: HexColor.fromHex(
+                                          widget.card.rarity.hexColor),
                                       borderRadius: BorderRadius.circular(10)),
-                                  child: Icon(
-                                    Icons.airplanemode_active,
-                                    size: 60,
+                                  child: Image.network(
+                                    backEndUrl +
+                                        "public/getFile?fileId=" +
+                                        widget.card.imageId.toString(),
+                                    height: 60,
+                                    width: 60,
                                   ),
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(top: 10, right: 10),
                                   child: Text(
-                                    "Редкая",
+                                    widget.card.rarity.title,
                                     style: TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 20,
-                                        color: Colors.blue),
+                                      fontFamily: "Montserrat",
+                                      fontSize: 20,
+                                      color: HexColor.fromHex(
+                                          widget.card.rarity.hexColor),
+                                    ),
                                   ),
                                 )
                               ],
                             ),
                             Padding(
                               child: Text(
-                                "Бесплатная поездка в любой город",
+                                widget.card.title,
                                 style: TextStyle(
                                     fontFamily: "Montserrat", fontSize: 26),
                                 maxLines: 3,
@@ -104,7 +112,7 @@ class _CardOpenPageState extends State<CardOpenPage>
                             ),
                             Padding(
                               child: Text(
-                                "Получи бесплатную поездку в любой говрод страны собрав нужное количество карточек",
+                                widget.card.description,
                                 style: TextStyle(fontFamily: "Montserrat"),
                                 maxLines: 7,
                               ),
@@ -141,7 +149,9 @@ class _CardOpenPageState extends State<CardOpenPage>
                   child: InkWell(
                     borderRadius: BorderRadius.circular(40.0),
                     onTap: () {
-                      Navigator.of(context).pop();
+                      widget.model.fetchUserData().then((value) {
+                        Navigator.of(context).pop();
+                      });
                     },
                     child: Center(
                       child: Text(

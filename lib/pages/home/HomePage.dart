@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             children: <Widget>[
               _homePage(context, model.score, model.bottle),
               _musicPage(),
-              _cardsPage(),
+              _cardsPage(model),
               _profilePage(),
             ],
           ),
@@ -421,7 +421,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       );
 
-  Widget _cardsPage() => CardsPage();
+  Widget _cardsPage(model) => CardsPage(model);
 
   Widget _musicPage() => MusicPage(
         tabController: _musicTabController,

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cocaapp/authservice.dart';
+import 'package:cocaapp/main.dart';
+import 'package:cocaapp/models/CardDisplay.dart';
 import 'package:cocaapp/models/CardModel.dart';
 import 'package:cocaapp/models/SongModel.dart';
 import 'package:cocaapp/pages/home/HomePage.dart';
@@ -14,13 +16,12 @@ import 'package:http/http.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-
+import 'package:cocaapp/models/CardDisplay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainModel extends Model {
   StreamController evenStream = new StreamController.broadcast();
 
-  String backEndUrl = "http://192.168.1.5:8080/";
   Widget currentPage;
   String uid;
   String token;
@@ -31,6 +32,7 @@ class MainModel extends Model {
   int score = 0;
   List<CardModel> userCards = [];
   List<SongModel> userSongs = [];
+  List<CardDisplay> userCardDisplay = [];
 
   void setAuthLoading() {
     authLoading = true;
@@ -42,14 +44,35 @@ class MainModel extends Model {
     notifyListeners();
   }
 
+  Future<CardModel> openCard() async {
+    Response res =
+        await http.get(backEndUrl + "getCard", headers: getAuthHeader());
+    var jsonResponse = convert.jsonDecode(utf8.decode(res.bodyBytes));
+    return CardModel.fromJson(jsonResponse);
+  }
+
   Future<void> fetchUserData() async {
+    userCardDisplay = [];
     Response res = await http.post(backEndUrl + "me", headers: getAuthHeader());
     var jsonResponse = convert.jsonDecode(utf8.decode(res.bodyBytes));
     this.uid = jsonResponse['uuid'];
     this.name = jsonResponse['name'].toString();
     this.phone = jsonResponse['phone'];
     this.score = jsonResponse['score'];
-    this.userCards = List<CardModel>.from(jsonResponse['gotCards']);
+
+    this.userCards = List<Map<String, dynamic>>.from(jsonResponse['gotCards'])
+        .map((e) => CardModel.fromJson(e))
+        .toList();
+
+    for (CardModel c in this.userCards) {
+      var product = this.userCardDisplay.firstWhere((card) => card.id == c.id, orElse: () => null);
+      if (product == null) {
+        this.userCardDisplay.add(CardDisplay.name(c.id, c.title, c.description, c.requiredNumber, c.rarity, c.imageId, 1));
+      } else {
+        product.quantity++;
+      }
+    }
+
     this.userSongs = List<SongModel>.from(jsonResponse['gotSongs']);
     Response imgBottle =
         await http.get(backEndUrl + "getNamedBottle", headers: getAuthHeader());
@@ -62,6 +85,8 @@ class MainModel extends Model {
   Map<String, String> getAuthHeader() {
     return {"Authorization": "Bearer " + this.token};
   }
+
+
 
   void setName(String name) {
     this.name = name;

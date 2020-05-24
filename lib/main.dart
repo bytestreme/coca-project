@@ -4,12 +4,14 @@ import 'package:cocaapp/util/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scoped_model/scoped_model.dart';
+final String backEndUrl = "http://192.168.1.6:8080/";
 
 void main() {
   runApp(App());
 }
 
 class App extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(

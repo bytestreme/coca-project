@@ -1,12 +1,12 @@
 import 'package:cocaapp/models/RarityModel.dart';
 
 class CardModel {
-  int         _id;
-  String      _title;
-  String      _description;
-  int         _requiredNumber;
+  int _id;
+  String _title;
+  String _description;
+  int _requiredNumber;
   RarityModel _rarity;
-  int         _imageId;
+  int _imageId;
 
   CardModel(this._id, this._title, this._description, this._requiredNumber,
       this._rarity, this._imageId);
@@ -28,7 +28,8 @@ class CardModel {
         json['title'],
         json['description'],
         json['requiredNumber'],
-        json['rarity'],
+        RarityModel(json['rarity']['id'], json['rarity']['title'],
+            json['rarity']['outOfAll'], json['rarity']['hexColor']),
         json['imageId'],
       );
 }
