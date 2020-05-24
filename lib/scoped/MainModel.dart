@@ -131,8 +131,6 @@ class MainModel extends Model {
         this.allSongs.removeAt(i);
       }
     }
-
-    evenStream.sink.add("LOCATED");
     notifyListeners();
   }
 
@@ -146,6 +144,7 @@ class MainModel extends Model {
         .post(backEndUrl + "setName?name=" + name, headers: getAuthHeader())
         .then((r) async {
       await fetchUserData();
+      evenStream.sink.add("NAMED");
     });
   }
 

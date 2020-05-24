@@ -15,14 +15,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return ScopedModelDescendant<MainModel>(
       builder: (_, __, m) {
         return Container(
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -58,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       children: [
                         TextSpan(
-                          text: "г. Алматы",
+                          text: "${m.location}",
                           style: TextStyle(
                               fontFamily: "Montserrat",
                               fontSize: 18,
@@ -80,8 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     onPressed: () {
                       m.signOut();
-                    }
-                ),
+                    }),
                 padding: EdgeInsets.only(top: 75),
               ),
               Padding(
