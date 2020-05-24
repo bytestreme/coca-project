@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:convert' as convert;
 import 'dart:typed_data';
 
+import 'package:cocaapp/LocationPage.dart';
 import 'package:cocaapp/main.dart';
 import 'package:cocaapp/models/CardDisplay.dart';
 import 'package:cocaapp/models/CardModel.dart';
@@ -18,6 +19,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 class MainModel extends Model {
   StreamController evenStream = new StreamController.broadcast();
+  String location = "";
 
   Widget currentPage;
   String uid;
@@ -130,7 +132,7 @@ class MainModel extends Model {
       }
     }
 
-    evenStream.sink.add("NAMED");
+    evenStream.sink.add("LOCATED");
     notifyListeners();
   }
 
@@ -147,6 +149,20 @@ class MainModel extends Model {
     });
   }
 
+  Future<void> located(String loc) async {
+    this.location = loc;
+    await http.post(
+      backEndUrl + "setLocation?loc=" + loc,
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        "Authorization": "Bearer " + this.token
+      },
+    );
+    evenStream.sink.add("LOCATED");
+    notifyListeners();
+  }
+
   handleAuth() {
     return StreamBuilder(
       stream: evenStream.stream,
@@ -158,11 +174,12 @@ class MainModel extends Model {
               currentPage = NamingPage();
               break;
             case "NAMED":
-              print("HERE");
+              currentPage = LocationPage();
+              break;
+            case "LOCATED":
               currentPage = HomePage();
               break;
             case "LOGOUT":
-              print("LOGOUT:HERE");
               currentPage = WelcomePage();
               break;
           }

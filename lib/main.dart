@@ -20,27 +20,22 @@ class App extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    return WillPopScope(
-      child: ScopedModel<MainModel>(
-        model: model,
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData.dark().copyWith(
-            backgroundColor: BACKGROUND_COLOR,
-            scaffoldBackgroundColor: BACKGROUND_COLOR,
-            appBarTheme: AppBarTheme(color: BACKGROUND_COLOR),
-          ),
-          home: ScopedModelDescendant<MainModel>(
-            builder: (_, __, m) {
-              return m.handleAuth();
-            },
-          ),
-          debugShowCheckedModeBanner: false,
+    return ScopedModel<MainModel>(
+      model: model,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData.dark().copyWith(
+          backgroundColor: BACKGROUND_COLOR,
+          scaffoldBackgroundColor: BACKGROUND_COLOR,
+          appBarTheme: AppBarTheme(color: BACKGROUND_COLOR),
         ),
+        home: ScopedModelDescendant<MainModel>(
+          builder: (_, __, m) {
+            return m.handleAuth();
+          },
+        ),
+        debugShowCheckedModeBanner: false,
       ),
-      onWillPop: () async {
-        return false;
-      },
     );
   }
 }

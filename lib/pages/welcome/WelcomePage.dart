@@ -4,16 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class WelcomePage extends StatefulWidget {
-
   @override
   _WelcomePageState createState() => _WelcomePageState();
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  bool loading = false;
   CrossFadeState _fadeState = CrossFadeState.showFirst;
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _codeController = TextEditingController();
@@ -26,7 +27,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
-      builder: (_,__,m) {
+      builder: (_, __, m) {
         return Scaffold(
           body: AnimatedCrossFade(
             duration: Duration(milliseconds: 300),
@@ -65,7 +66,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Container(
                         alignment: Alignment.center,
                         padding:
-                        EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
+                            EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
                         child: Column(
                           children: <Widget>[
                             PinCodeTextField(
@@ -80,7 +81,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                 borderRadius: BorderRadius.circular(5),
                                 selectedColor: Colors.red,
                                 fieldWidth:
-                                MediaQuery.of(context).size.width / 11 - 10,
+                                    MediaQuery.of(context).size.width / 11 - 10,
                                 activeColor: Colors.white,
                                 selectedFillColor: Colors.white,
                               ),
@@ -101,8 +102,8 @@ class _WelcomePageState extends State<WelcomePage> {
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
                                 Theme(
-                                  data:
-                                  ThemeData(unselectedWidgetColor: Colors.red),
+                                  data: ThemeData(
+                                      unselectedWidgetColor: Colors.red),
                                   child: Checkbox(
                                     value: this._checked,
                                     tristate: false,
@@ -110,7 +111,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                     activeColor: Colors.red,
                                     onChanged: (bool val) {
                                       setState(
-                                            () {
+                                        () {
                                           this._checked = !this._checked;
                                         },
                                       );
@@ -138,7 +139,9 @@ class _WelcomePageState extends State<WelcomePage> {
                                   borderRadius: BorderRadius.circular(20.0),
                                   onTap: () {
                                     setState(() {
-                                      verifyPhone("+${_phoneController.text}", m).then((value) {
+                                      verifyPhone(
+                                              "+${_phoneController.text}", m)
+                                          .then((value) {
                                         _fadeState = CrossFadeState.showSecond;
                                       });
                                     });
@@ -289,16 +292,25 @@ class _WelcomePageState extends State<WelcomePage> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(20.0),
                           onTap: () {
-                            m.signInWithOTP(_codeController.text, verificationId);
+                            setState(() {
+                              loading = true;
+                            });
+                            m.signInWithOTP(
+                                _codeController.text, verificationId);
                           },
                           child: Center(
-                            child: Text(
-                              'Подтвердить',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
-                            ),
+                            child: loading
+                                ? SpinKitThreeBounce(
+                                    size: 25,
+                                    color: Colors.black,
+                                  )
+                                : Text(
+                                    'Подтвердить',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Montserrat'),
+                                  ),
                           ),
                         ),
                       ),
