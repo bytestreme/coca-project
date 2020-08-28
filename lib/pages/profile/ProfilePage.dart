@@ -1,4 +1,3 @@
-import 'package:cocaapp/authservice.dart';
 import 'package:cocaapp/scoped/MainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

@@ -1,10 +1,9 @@
-import 'package:cocaapp/authservice.dart';
 import 'package:cocaapp/scoped/MainModel.dart';
 import 'package:cocaapp/util/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scoped_model/scoped_model.dart';
-final String backEndUrl = "http://192.168.1.6:8080/";
+final String backEndUrl = "http://192.168.1.16:8080/";
 
 void main() {
   runApp(App());
